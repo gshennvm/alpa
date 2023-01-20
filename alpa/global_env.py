@@ -69,14 +69,21 @@ class GlobalConfig:
         # This is a debug option.
         self.pipeline_use_signal_send_recv = False
         # Whether to use the scatter-gater/local-all-gather optimization.
-        self.use_local_allgather = True
         # Cross mesh resharding mode. Possible choices: {"send_recv",
         # "broadcast"}
-        self.resharding_mode = "send_recv"
         # Which nccl to use. Possible choices: {"cupy",
         # "xla_extension"}
-        self.nccl_mode = "cupy"
-        self.enable_overlapping = False
+#TODO: previous
+# self.use_local_allgather = True
+# self.nccl_mode = "cupy"
+# self.enable_overlapping = False
+
+        self.use_local_allgather = False
+        self.nccl_mode = "xla_extension"
+        # self.resharding_mode = "send_recv"
+        self.resharding_mode = "broadcast"
+        self.enable_overlapping = True
+
         # Cross mesh resharding load balancing mode.
         # Possible choices: {"normal", "no_loadbalance",
         # "loadbalance_size", "loadbalance_order"}

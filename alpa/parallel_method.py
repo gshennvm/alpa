@@ -250,6 +250,7 @@ def get_3d_parallel_method(num_micro_batches: int,
                            pipeline_parallel: int,
                            allow_degenerate_into_shard_parallel: bool = True, 
                            ms_option: Any = None,
+                           forward_stage_layer_ids=None,
                            ):
     """
     Get a parallel method for 3D parallelism, which reguarlly combines
@@ -297,7 +298,7 @@ def get_3d_parallel_method(num_micro_batches: int,
         default_auto_sharding_option=AutoShardingOption(False),
         layer_option=ManualLayerOption(),
         stage_option=ManualStageOption(
-            forward_stage_layer_ids=[[i] for i in range(pp)],
+            forward_stage_layer_ids=forward_stage_layer_ids or [[i] for i in range(pp)],
             submesh_physical_shapes=[physical_mesh_shape] * pp,
             submesh_logical_shapes=[logical_mesh_shape] * pp,
             submesh_autosharding_option_dicts=[{}] * pp
