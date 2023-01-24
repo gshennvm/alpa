@@ -519,12 +519,12 @@ class PipeshardMeshWorkerExecutable:
         timers(self.exec_timer_name).start(sync_func=sync_func)
 
         for instruction in self.instructions:
-            #self.worker.sync()
-            #print(f"memory_allocated: "
-            #      f"{self.worker.get_memory_allocated()/1024**3:.3f} GB  "
-            #      f"max_memory_allocated: "
-            #      f"{self.worker.get_max_memory_allocated()/1024**3:.3f} GB "
-            #      f"next instruction: {instruction}", flush=True)
+            # self.worker.sync()
+# print(f"memory_allocated: "
+# f"{self.worker.get_memory_allocated()/1024**3:.3f} GB  "
+# f"max_memory_allocated: "
+# f"{self.worker.get_max_memory_allocated()/1024**3:.3f} GB "
+# f"next instruction: {instruction}", flush=True)
 
             if instruction.opcode == PipelineInstType.RUN:
                 log_run_begin(instruction.info, sync_func=sync_func)

@@ -97,7 +97,7 @@ class ShardParallel(ParallelMethod):
         if self.devices is None:
             mesh = get_global_physical_mesh(create_if_not_exist=True)
             # Use 1d mesh by default
-            mesh = mesh.get_logical_mesh().flatten()
+            mesh = mesh.get_logical_mesh()
         elif isinstance(self.devices, (list, tuple)):
             mesh = LocalPhysicalDeviceMesh(self.devices)
         else:
@@ -251,6 +251,7 @@ def get_3d_parallel_method(num_micro_batches: int,
                            allow_degenerate_into_shard_parallel: bool = True, 
                            ms_option: Any = None,
                            forward_stage_layer_ids=None,
+                           remat=False,
                            ):
     """
     Get a parallel method for 3D parallelism, which reguarlly combines
@@ -296,7 +297,7 @@ def get_3d_parallel_method(num_micro_batches: int,
         devices=virtual_mesh,
         num_micro_batches=num_micro_batches,
         default_auto_sharding_option=AutoShardingOption(False),
-        layer_option=ManualLayerOption(),
+        layer_option=ManualLayerOption(remat),
         stage_option=ManualStageOption(
             forward_stage_layer_ids=forward_stage_layer_ids or [[i] for i in range(pp)],
             submesh_physical_shapes=[physical_mesh_shape] * pp,
